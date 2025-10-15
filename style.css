@@ -4,10 +4,22 @@ body, html {
 }
 
 body {
-    background: rgb(255, 134, 35);
+
     margin: 0;
     font-family: 'Inter', Arial, sans-serif;
     height: 100%;
+}
+
+#fullscreen-div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(255,121,11);
+    z-index: 10;
+    transition: opacity 1s;
+    opacity: 1;
 }
 
 #site-loading-header {
