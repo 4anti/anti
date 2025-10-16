@@ -21,7 +21,11 @@ body {
     font-weight: 400;
     text-align: center;
     font-family: "BBH Sans Hegarty", serif;
-    background: rgb(255, 89, 0);
+    background: #ff1e00;
+    background: -webkit-linear-gradient(67deg, rgba(255, 30, 0, 1) 0%, rgba(255, 102, 0, 1) 50%, rgba(247, 58, 0, 1) 100%);
+    background: -moz-linear-gradient(67deg, rgba(255, 30, 0, 1) 0%, rgba(255, 102, 0, 1) 50%, rgba(247, 58, 0, 1) 100%);
+    background: linear-gradient(67deg, rgba(255, 30, 0, 1) 0%, rgba(255, 102, 0, 1) 50%, rgba(247, 58, 0, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FF1E00", endColorstr="#F73A00", GradientType=0);
     z-index: 10;
     width: 101vw;
     height: 101vh;
