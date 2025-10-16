@@ -1,39 +1,38 @@
 body, html {
     height: 100%;
     margin: 0;
+    padding: 0; /* Add this */
+    overflow: hidden; /* Add this to prevent any scrollbars */
 }
 
 body {
-
     margin: 0;
+    padding: 0; /* Add this */
     font-family: 'Inter', Arial, sans-serif;
     height: 100%;
 }
 
-#fullscreen-div {
+#site-loading-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgb(255,121,11);
+    top: 0; /* Change from 50% to 0 */
+    left: 0; /* Change from 50% to 0 */
+    transform: none; /* Remove the transform */
+    font-size: 70px;
+    font-weight: 400;
+    text-align: center;
+    font-family: "BBH Sans Hegarty", serif;
+    background: rgb(255, 89, 0);
     z-index: 10;
-    transition: opacity 1s;
-    opacity: 1;
+    width: 101vw;
+    height: 101vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0; /* Add this */
+    padding: 0; /* Add this */
 }
 
-#site-loading-header {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 50px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-align: center;
-    margin: 0;
-    font-family: "BBH Sans Hegarty", serif;
+.letter {
+    display: inline-block;
+    position: relative;
 }

@@ -1,38 +1,70 @@
 console.log("Antifalls Landing Page");
 
-// Loading Screen Blur & Fade
+// Auto-create letter spans
 const element = document.getElementById("site-loading-header");
+const text = element.textContent;
+element.innerHTML = '';
 
-let blurPower = 15;
-let delay = 1;
-let opacity = 0;
-element.style.opacity = opacity;
-let translateY = 50;
-element.style.filter = "blur(" + blurPower + "px)";
+// Keep the main element centered (your original centering)
+element.style.position = 'absolute';
+element.style.top = '50%';
+element.style.left = '50%';
+element.style.transform = 'translate(-50%, -50%)'; // Keep this for centering
 
-function removeBlurFade() {
-    if (blurPower > 0) {
-        element.style.filter = "blur(" + blurPower + "px)";
-        element.style.opacity = opacity;
-        blurPower = blurPower - 0.12;
-        opacity = opacity + 0.01;
-        setTimeout(removeBlurFade, delay);
+// Create spans for each letter
+const letters = [];
+for (let i = 0; i < text.length; i++) {
+    if (text[i] !== ' ') { // Skip spaces
+        const span = document.createElement('span');
+        span.className = 'letter';
+        span.textContent = text[i];
+        span.style.display = 'inline-block';
+        span.style.position = 'relative'; // Use relative positioning for individual letters
+        element.appendChild(span);
+        letters.push(span);
     }
 }
-removeBlurFade();
 
+// Animation parameters for each letter
+let letterAnimations = [];
 
+// Initialize each letter's animation state
+letters.forEach((letter, index) => {
+    letterAnimations[index] = {
+        blurPower: 17,
+        delay: 1,
+        opacity: 0.01,
+        translateY: 200,
+        element: letter,
+        startDelay: index * 150
+    };
 
+    // Set initial styles - use transform with just translateY
+    letter.style.opacity = 0.01;
+    letter.style.filter = "blur(17px)";
+    letter.style.transform = "translateY(" + 200 + "px)"; // Only move vertically
+});
 
+// Animation function (your exact style)
+function removeBlurFadeForLetter(letterIndex) {
+    const anim = letterAnimations[letterIndex];
 
-//const fonts = ["BBH Sans Hegarty", "Gravitas One", "Poller One", "Michroma", "Bodoni Moda"];
-//const scalingFactors = {"BBH Sans Hegarty": 1.0, "Gravitas One": 0.95, "Poller One": 1, "Michroma": 0.85, "Bodoni Moda": 1};
-//let delay = 50;
-//let currentindex = 0;
-//function cycleFonts() {
-// const fontName = fonts[currentindex];
-// element.style.fontFamily = fontName;
-// currentindex = (currentindex + 1) % fonts.length;
-// delay = delay * 1.3;
-// if (delay <= 500) {setTimeout(cycleFonts, delay)
-// ;}}
+    if (anim.blurPower > -1) {
+        anim.element.style.filter = "blur(" + anim.blurPower + "px)";
+        anim.element.style.opacity = anim.opacity;
+        anim.element.style.transform = "translateY(" + anim.translateY + "px)"; // Only vertical movement
+
+        anim.blurPower = anim.blurPower - (0.12 * 1.01);
+        anim.opacity = anim.opacity * 1.04;
+        anim.translateY = anim.translateY * 0.98;
+
+        setTimeout(() => removeBlurFadeForLetter(letterIndex), anim.delay);
+    }
+}
+
+// Start animations with staggered delays
+letters.forEach((letter, index) => {
+    setTimeout(() => {
+        removeBlurFadeForLetter(index);
+    }, letterAnimations[index].startDelay);
+});
