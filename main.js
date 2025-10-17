@@ -5,12 +5,6 @@ const element = document.getElementById("site-loading-header");
 const text = element.textContent;
 element.innerHTML = '';
 
-// Keep the main element centered (your original centering)
-element.style.position = 'absolute';
-element.style.top = '50%';
-element.style.left = '50%';
-element.style.transform = 'translate(-50%, -50%)'; // Keep this for centering
-
 // Create spans for each letter
 const letters = [];
 for (let i = 0; i < text.length; i++) {
@@ -19,7 +13,7 @@ for (let i = 0; i < text.length; i++) {
         span.className = 'letter';
         span.textContent = text[i];
         span.style.display = 'inline-block';
-        span.style.position = 'relative'; // Use relative positioning for individual letters
+        span.style.position = 'relative'; // Use relative positioning
         element.appendChild(span);
         letters.push(span);
     }

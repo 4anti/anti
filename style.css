@@ -39,4 +39,9 @@ body {
 .letter {
     display: inline-block;
     position: relative;
+    color: black; /* Normal black text */
+    background: black; /* Just black background initially */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
