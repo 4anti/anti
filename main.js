@@ -104,5 +104,5 @@ setTimeout(() => {
                 removeBannerBlurFadeForLetter(index);
             }, bannerLetterAnimations[index].startDelay);
         });
-    }, 200); // Wait 400ms for slide-down before animating banner text
+    }, 200);
 }, antiAnimationDuration);
