@@ -1,28 +1,22 @@
 console.log("Antifalls Landing Page");
 
-// Auto-create letter spans
+// --- ANTI Animation ---
 const element = document.getElementById("site-loading-header");
 const text = element.textContent;
 element.innerHTML = '';
-
-// Create spans for each letter
 const letters = [];
 for (let i = 0; i < text.length; i++) {
-    if (text[i] !== ' ') { // Skip spaces
+    if (text[i] !== ' ') {
         const span = document.createElement('span');
         span.className = 'letter';
         span.textContent = text[i];
         span.style.display = 'inline-block';
-        span.style.position = 'relative'; // Use relative positioning
+        span.style.position = 'relative';
         element.appendChild(span);
         letters.push(span);
     }
 }
-
-// Animation parameters for each letter
 let letterAnimations = [];
-
-// Initialize each letter's animation state
 letters.forEach((letter, index) => {
     letterAnimations[index] = {
         blurPower: 17,
@@ -32,33 +26,83 @@ letters.forEach((letter, index) => {
         element: letter,
         startDelay: index * 150
     };
-
-    // Set initial styles - use transform with just translateY
     letter.style.opacity = 0.01;
     letter.style.filter = "blur(17px)";
-    letter.style.transform = "translateY(" + 200 + "px)"; // Only move vertically
+    letter.style.transform = "translateY(200px)";
 });
-
-// Animation function (your exact style)
 function removeBlurFadeForLetter(letterIndex) {
     const anim = letterAnimations[letterIndex];
-
     if (anim.blurPower > -1) {
         anim.element.style.filter = "blur(" + anim.blurPower + "px)";
         anim.element.style.opacity = anim.opacity;
-        anim.element.style.transform = "translateY(" + anim.translateY + "px)"; // Only vertical movement
-
+        anim.element.style.transform = "translateY(" + anim.translateY + "px)";
         anim.blurPower = anim.blurPower - (0.12 * 1.01);
         anim.opacity = anim.opacity * 1.04;
         anim.translateY = anim.translateY * 0.98;
-
         setTimeout(() => removeBlurFadeForLetter(letterIndex), anim.delay);
     }
 }
-
-// Start animations with staggered delays
 letters.forEach((letter, index) => {
     setTimeout(() => {
         removeBlurFadeForLetter(index);
     }, letterAnimations[index].startDelay);
 });
+
+// --- Construction Banner Wait Logic ---
+const antiAnimationDuration = letterAnimations[letterAnimations.length - 1].startDelay + 800;
+
+setTimeout(() => {
+    document.getElementById('construction-banner').classList.add('show');
+    const bannerMsgElement = document.querySelector('.banner-text');
+    const bannerMsg = bannerMsgElement.textContent;
+    bannerMsgElement.innerHTML = '';
+
+    const bannerLetters = [];
+    for (let i = 0; i < bannerMsg.length; i++) {
+        if (bannerMsg[i] !== ' ') {
+            const span = document.createElement('span');
+            span.className = 'banner-letter';
+            span.textContent = bannerMsg[i];
+            span.style.display = 'inline-block';
+            span.style.position = 'relative';
+            bannerMsgElement.appendChild(span);
+            bannerLetters.push(span);
+        } else {
+            bannerMsgElement.appendChild(document.createTextNode(' '));
+        }
+    }
+    let bannerLetterAnimations = [];
+    bannerLetters.forEach((letter, index) => {
+        bannerLetterAnimations[index] = {
+            blurPower: 17,
+            delay: 1,
+            opacity: 0.01,
+            translateY: 200,
+            element: letter,
+            startDelay: index * 50
+        };
+        letter.style.opacity = 0.01;
+        letter.style.filter = "blur(17px)";
+        letter.style.transform = "translateY(200px)";
+    });
+    // Wait AFTER banner slides down
+    setTimeout(() => {
+        function removeBannerBlurFadeForLetter(letterIndex) {
+            const anim = bannerLetterAnimations[letterIndex];
+            if (anim.blurPower > -1) {
+                anim.element.style.filter = "blur(" + anim.blurPower + "px)";
+                anim.element.style.opacity = anim.opacity;
+                anim.element.style.transform = "translateY(" + anim.translateY + "px)";
+                anim.blurPower = anim.blurPower - (0.12 * 1.01);
+                anim.opacity = anim.opacity * 1.04;
+                anim.translateY = anim.translateY * 0.98;
+                setTimeout(() => removeBannerBlurFadeForLetter(letterIndex), anim.delay);
+            }
+        }
+        bannerLetters.forEach((letter, index) => {
+            setTimeout(() => {
+                removeBannerBlurFadeForLetter(index);
+            }, bannerLetterAnimations[index].startDelay);
+        });
+    }, 400); // Wait 400ms for slide-down before animating banner text
+}, antiAnimationDuration);

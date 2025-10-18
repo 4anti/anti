@@ -45,3 +45,55 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+#construction-banner {
+    width: 101vw;
+    padding: 1vh;
+    background: linear-gradient(90deg, #000000 0, #171717 100%);
+    font-family: 'Outfit', Arial, sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    position: fixed;
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.2s, transform 0.4s cubic-bezier(.65,.01,.80,1.13);
+}
+.banner-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #1eff01;
+    border-radius: 70%;
+    box-shadow: 0 0 1px rgba(0, 193, 18, 0.9);
+    animation: dot-pulse 1.2s infinite alternate;
+}
+@keyframes dot-pulse {
+    to { box-shadow: 0 0 22px rgba(79, 161, 0, 0.8); }
+}
+.banner-text {
+    color: #ffffff;
+    opacity: 1;
+}
+.banner-letter {
+    color: #ffffff; /* or any color for the banner */
+    font-weight: 300;
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    left: 0;
+    bottom: 11px;
+    transform: translateY(2px);
+}
+#construction-banner.show {
+    opacity: 1;
+    transform: translateY(0);
+}
