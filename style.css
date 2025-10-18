@@ -1,22 +1,26 @@
 body, html {
     height: 100%;
     margin: 0;
-    padding: 0; /* Add this */
-    overflow: hidden; /* Add this to prevent any scrollbars */
+    padding: 0;
+    overflow: hidden;
 }
 
 body {
     margin: 0;
-    padding: 0; /* Add this */
+    padding: 0;
     font-family: 'Inter', Arial, sans-serif;
     height: 100%;
 }
 
 #site-loading-header {
     position: fixed;
-    top: 0; /* Change from 50% to 0 */
-    left: 0; /* Change from 50% to 0 */
-    transform: none; /* Remove the transform */
+    top: 0;
+    left: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    transform: none;
     font-size: 70px;
     font-weight: 400;
     text-align: center;
@@ -32,15 +36,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0; /* Add this */
-    padding: 0; /* Add this */
+    margin: 0;
+    padding: 0;
 }
 
 .letter {
     display: inline-block;
     position: relative;
-    color: black; /* Normal black text */
-    background: black; /* Just black background initially */
+    color: black;
+    background: black;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -48,8 +52,14 @@ body {
 
 #construction-banner {
     width: 101vw;
-    padding: 1vh;
-    background: linear-gradient(90deg, #000000 0, #171717 100%);
+    padding: 1.2rem;
+    pointer-events: none;
+    content: '';
+    background: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 342 36"><g transform="translate(0 0)"><path d="M 5.456 0 C -54.232 0 396.772 0 336.428 0 C 276.084 0 312.723 36 253.697 36 C 194.671 36 108.098 36 89.438 36 C 27.285 36 65.144 0 5.456 0 Z" fill="%23111111"></path></g></svg>');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: top center;
     font-family: 'Outfit', Arial, sans-serif;
     font-size: 1rem;
     letter-spacing: 0.04em;
@@ -61,26 +71,26 @@ body {
     gap: 12px;
     opacity: 0;
     transform: translateY(-100%);
-    transition: opacity 0.2s, transform 0.4s cubic-bezier(.65,.01,.80,1.13);
+    transition: opacity 0.8s, transform 0.5s cubic-bezier(.65,.01,.80,1.13);
 }
 .banner-dot {
     display: inline-block;
     width: 12px;
     height: 12px;
-    background: #1eff01;
+    background: #00fff8;
     border-radius: 70%;
-    box-shadow: 0 0 1px rgba(0, 193, 18, 0.9);
-    animation: dot-pulse 1.2s infinite alternate;
+    box-shadow: 0 0 1px rgb(0, 255, 248);
+    animation: dot-pulse 0.7s infinite alternate;
 }
 @keyframes dot-pulse {
-    to { box-shadow: 0 0 22px rgba(79, 161, 0, 0.8); }
+    to { box-shadow: 0 0 22px rgb(0, 255, 248); }
 }
 .banner-text {
     color: #ffffff;
     opacity: 1;
 }
 .banner-letter {
-    color: #ffffff; /* or any color for the banner */
+    color: #ffffff;
     font-weight: 300;
     background: none;
     background-clip: unset;
@@ -90,7 +100,7 @@ body {
     justify-content: center;
     vertical-align: middle;
     left: 0;
-    bottom: 11px;
+    bottom: 0.72rem;
     transform: translateY(2px);
 }
 #construction-banner.show {

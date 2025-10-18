@@ -1,4 +1,5 @@
 console.log("Antifalls Landing Page");
+document.addEventListener('contextmenu', event => event.preventDefault());
 
 // --- ANTI Animation ---
 const element = document.getElementById("site-loading-header");
@@ -104,5 +105,5 @@ setTimeout(() => {
                 removeBannerBlurFadeForLetter(index);
             }, bannerLetterAnimations[index].startDelay);
         });
-    }, 200); // Wait 400ms for slide-down before animating banner text
+    }, 200);
 }, antiAnimationDuration);
