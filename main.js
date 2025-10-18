@@ -49,7 +49,7 @@ letters.forEach((letter, index) => {
 });
 
 // --- Construction Banner Wait Logic ---
-const antiAnimationDuration = letterAnimations[letterAnimations.length - 1].startDelay + 800;
+const antiAnimationDuration = letterAnimations[letterAnimations.length - 1].startDelay + 200;
 
 setTimeout(() => {
     document.getElementById('construction-banner').classList.add('show');
@@ -79,7 +79,7 @@ setTimeout(() => {
             opacity: 0.01,
             translateY: 200,
             element: letter,
-            startDelay: index * 50
+            startDelay: index * 30
         };
         letter.style.opacity = 0.01;
         letter.style.filter = "blur(17px)";
@@ -104,5 +104,5 @@ setTimeout(() => {
                 removeBannerBlurFadeForLetter(index);
             }, bannerLetterAnimations[index].startDelay);
         });
-    }, 400); // Wait 400ms for slide-down before animating banner text
+    }, 200); // Wait 400ms for slide-down before animating banner text
 }, antiAnimationDuration);
