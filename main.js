@@ -1,4 +1,5 @@
 console.log("Antifalls Landing Page");
+
 document.addEventListener('contextmenu', event => event.preventDefault());
 
 // --- ANTI Animation ---
@@ -53,12 +54,15 @@ letters.forEach((letter, index) => {
 const antiAnimationDuration = letterAnimations[letterAnimations.length - 1].startDelay + 200;
 
 setTimeout(() => {
-    document.getElementById('construction-banner').classList.add('show');
+    const banner = document.getElementById('construction-banner');
+    const dot = document.querySelector('.banner-dot');
     const bannerMsgElement = document.querySelector('.banner-text');
+
+    // Pre-build the text structure but keep it invisible to prevent layout shift
     const bannerMsg = bannerMsgElement.textContent;
     bannerMsgElement.innerHTML = '';
-
     const bannerLetters = [];
+
     for (let i = 0; i < bannerMsg.length; i++) {
         if (bannerMsg[i] !== ' ') {
             const span = document.createElement('span');
@@ -66,12 +70,17 @@ setTimeout(() => {
             span.textContent = bannerMsg[i];
             span.style.display = 'inline-block';
             span.style.position = 'relative';
+            span.style.opacity = '0';
+            span.style.filter = "blur(17px)";
+            span.style.transform = "translateY(200px)";
             bannerMsgElement.appendChild(span);
             bannerLetters.push(span);
         } else {
             bannerMsgElement.appendChild(document.createTextNode(' '));
         }
     }
+
+    // Prepare animation data
     let bannerLetterAnimations = [];
     bannerLetters.forEach((letter, index) => {
         bannerLetterAnimations[index] = {
@@ -82,28 +91,39 @@ setTimeout(() => {
             element: letter,
             startDelay: index * 30
         };
-        letter.style.opacity = 0.01;
-        letter.style.filter = "blur(17px)";
-        letter.style.transform = "translateY(200px)";
     });
-    // Wait AFTER banner slides down
+
+    // Show the banner
+    banner.classList.add('show');
+
+    // Wait for banner animation
     setTimeout(() => {
-        function removeBannerBlurFadeForLetter(letterIndex) {
-            const anim = bannerLetterAnimations[letterIndex];
-            if (anim.blurPower > -1) {
-                anim.element.style.filter = "blur(" + anim.blurPower + "px)";
-                anim.element.style.opacity = anim.opacity;
-                anim.element.style.transform = "translateY(" + anim.translateY + "px)";
-                anim.blurPower = anim.blurPower - (0.12 * 1.01);
-                anim.opacity = anim.opacity * 1.04;
-                anim.translateY = anim.translateY * 0.98;
-                setTimeout(() => removeBannerBlurFadeForLetter(letterIndex), anim.delay);
+        dot.style.background = '#00fff8';
+        dot.style.boxShadow = '0 0 22px #00fff8';
+
+        // Wait for dot transitions
+        setTimeout(() => {
+            // Now animate the text
+            function removeBannerBlurFadeForLetter(letterIndex) {
+                const anim = bannerLetterAnimations[letterIndex];
+                if (anim.blurPower > -1) {
+                    anim.element.style.filter = "blur(" + anim.blurPower + "px)";
+                    anim.element.style.opacity = anim.opacity;
+                    anim.element.style.transform = "translateY(" + anim.translateY + "px)";
+                    anim.blurPower = anim.blurPower - (0.12 * 1.01);
+                    anim.opacity = anim.opacity * 1.04;
+                    anim.translateY = anim.translateY * 0.98;
+                    setTimeout(() => removeBannerBlurFadeForLetter(letterIndex), anim.delay);
+                }
             }
-        }
-        bannerLetters.forEach((letter, index) => {
-            setTimeout(() => {
-                removeBannerBlurFadeForLetter(index);
-            }, bannerLetterAnimations[index].startDelay);
-        });
-    }, 200);
+
+            bannerLetters.forEach((letter, index) => {
+                setTimeout(() => {
+                    removeBannerBlurFadeForLetter(index);
+                }, bannerLetterAnimations[index].startDelay);
+            });
+        }, 700); // for dot transition
+
+    }, 800); // for banner slide-down
+
 }, antiAnimationDuration);
